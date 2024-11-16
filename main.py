@@ -2,30 +2,60 @@ import os
 import sys
 import subprocess
 import signal
-
-pid = None
-process = None
+import time 
 
 def menu():
     os.system("clear")
-    print("1. Add a note 4. Rain\n2. My notes\n3. Exit")
+    print("1. Add a note 4. Sound\n2. My notes\n3. Exit")
     
 # ------------------------------  PLAYER   -----------------------------
 
 def mpvPlayer(userInput):
-    global pid
-    global process
-    if userInput == "0" and pid is not None:
-        os.kill(pid, signal.SIGTERM)
-        pid = None
+    os.system("clear")
+    print("Play 4 - 7  Stop 0.\n 4. Rain 5. Thunder 6. Fire 7. Wind\n---------------------")
+    userInput = input()
+    if userInput == "0":
+        os.system("pkill mpv")
+        print("ok")
+        time.sleep(2)
+        menu()
+        
     if userInput == "4":
+        os.system("clear")
+        menu()
         subprocess.Popen(
             ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-rain.wav"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
-        pid = process.pid
-        
+    if userInput == "5":
+        os.system("clear")
+        menu()
+        subprocess.Popen(
+            ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-thunder.wav"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+    if userInput == "6":
+        os.system("clear")
+        menu()
+        subprocess.Popen(
+            ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-fire.wav.wav"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+    if userInput == "7":
+        os.system("clear")
+        menu()
+        subprocess.Popen(
+            ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-wind.wav"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+    if userInput == "1":
+        menu()
+
+
 # ----------------------------   ADD NOTES   ---------------------------
 
 def addNote(userInput, notes):
@@ -77,7 +107,7 @@ def main():
         if userInput == "2":   # View notes
             watchNote(userInput)
         if userInput == "3":
-            exit(userInput)
+            exitProgram(userInput)
         if userInput == "4":
             mpvPlayer(userInput)
 
