@@ -3,6 +3,7 @@ import sys
 import subprocess
 import signal
 import time 
+# import platform # for future support windows
 
 def menu():
     os.system("clear")
@@ -12,7 +13,7 @@ def menu():
 
 def mpvPlayer(userInput):
     os.system("clear")
-    print("Play 4 - 7  Stop 0.\n 4. Rain 5. Thunder 6. Fire 7. Wind\n---------------------")
+    print("1. Menu 4-7. Back Play  0. Stop\n4. Rain 5. Thunder 6. Fire 7. Wind\n-----------------------------------")
     userInput = input()
     if userInput == "0":
         os.system("pkill mpv")
@@ -40,7 +41,7 @@ def mpvPlayer(userInput):
         os.system("clear")
         menu()
         subprocess.Popen(
-            ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-fire.wav.wav"],
+            ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-fire.wav"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
