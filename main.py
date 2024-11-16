@@ -91,6 +91,7 @@ def exitProgram(userInput):
     print("Are you sure?\n1. Yes 2. No")
     userInput = input()
     if userInput == "1":
+        os.system("pkill mpv")
         sys.exit()
         return False
     if userInput == "2":
