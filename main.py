@@ -1,6 +1,10 @@
 import os 
 import sys
 import subprocess
+import signal
+
+pid = None
+process = None
 
 def menu():
     os.system("clear")
@@ -9,12 +13,19 @@ def menu():
 # ------------------------------  PLAYER   -----------------------------
 
 def mpvPlayer(userInput):
+    global pid
+    global process
+    if userInput == "0" and pid is not None:
+        os.kill(pid, signal.SIGTERM)
+        pid = None
     if userInput == "4":
-        subprocess.run(
+        subprocess.Popen(
             ["mpv", "--quiet", "--audio-device=pulse", "--loop", "sound/ambience-rain.wav"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
+        pid = process.pid
+        
 # ----------------------------   ADD NOTES   ---------------------------
 
 def addNote(userInput, notes):
@@ -44,7 +55,7 @@ def watchNote(userInput):
 
 # ------------------------------    EXIT   ------------------------------
 
-def exit(userInput):
+def exitProgram(userInput):
     os.system("clear")
     print("Are you sure?\n1. Yes 2. No")
     userInput = input()
